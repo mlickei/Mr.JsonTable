@@ -8,6 +8,7 @@
 
     $.fn.mrjsontablecolumn.defaults = {
         heading: "Heading",
+	classname: "",
         data: "json_field",
         type: "string",
         sortable: true,
@@ -64,6 +65,7 @@
             $.each(opts.columns, function (c_index, c_item) {
 
                 var $td = $("<td>").text(item[c_item.data]).attr("data-i", c_index);
+		$td.addClass(c_item.classname);
 
                 if (c_item.starthidden) {
                     $td.hide();
