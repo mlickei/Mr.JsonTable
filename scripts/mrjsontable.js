@@ -99,7 +99,7 @@
         pageSize: 10,
         tableOptions: {
           allowHideColumns: true
-        }
+        },
 
         onHiddenCBChange: function () {
             var $thisGrid = $(this).parents(".mrjt");
