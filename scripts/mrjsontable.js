@@ -13,7 +13,7 @@
         type: "string",
         sortable: true,
         starthidden: false
-    }
+    };
 
     $.fn.mrjsontable = function (options) {
 
@@ -51,7 +51,7 @@
         });
 
         $theadRow.appendTo($thead);
-        $thead.appendTo($table);
+        if(opts.tableOptions.displayColumnHeaders) $thead.appendTo($table);
 
         var pagingNeeded = false;
         $.each(opts.data, function (index, item) {
@@ -98,7 +98,8 @@
         data: [],
         pageSize: 10,
         tableOptions: {
-          allowHideColumns: true
+          allowHideColumns: true,
+          displayColumnHeaders: true
         },
 
         onHiddenCBChange: function () {
