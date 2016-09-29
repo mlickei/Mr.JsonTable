@@ -8,12 +8,12 @@
 
     $.fn.mrjsontablecolumn.defaults = {
         heading: "Heading",
-	classname: "",
+        classname: "",
         data: "json_field",
         type: "string",
         sortable: true,
         starthidden: false
-    }
+    };
 
     $.fn.mrjsontable = function (options) {
 
@@ -51,8 +51,8 @@
         });
 
         $theadRow.appendTo($thead);
-        $thead.appendTo($table);
-        
+        if(opts.tableOptions.displayColumnHeaders) $thead.appendTo($table);
+
         var pagingNeeded = false;
         $.each(opts.data, function (index, item) {
             var $tr = $("<tr>").attr("data-i", index);
@@ -65,7 +65,7 @@
             $.each(opts.columns, function (c_index, c_item) {
 
                 var $td = $("<td>").text(item[c_item.data]).attr("data-i", c_index);
-		$td.addClass(c_item.classname);
+	              $td.addClass(c_item.classname);
 
                 if (c_item.starthidden) {
                     $td.hide();
@@ -75,8 +75,8 @@
             });
             $tr.appendTo($table);
         });
-                
-        $mrjsontableContainer.append($visibleColumnsCBList);
+
+        if(opts.tableOptions.allowHideColumns) $mrjsontableContainer.append($visibleColumnsCBList);
         $mrjsontableContainer.append($table);
 
 
@@ -91,17 +91,21 @@
 
         return this.append($mrjsontableContainer);
     };
-    
+
     $.fn.mrjsontable.defaults = {
         cssClass: "table",
         columns: [],
         data: [],
         pageSize: 10,
+        tableOptions: {
+          allowHideColumns: true,
+          displayColumnHeaders: true
+        },
 
         onHiddenCBChange: function () {
             var $thisGrid = $(this).parents(".mrjt");
             var columIndex = $(this).attr("data-i");
-            
+
             if ($(this).is(":checked")) {
                 $("td[data-i='" + columIndex + "']", $thisGrid).show();
                 $("th[data-i='" + columIndex + "']", $thisGrid).show();
@@ -193,7 +197,7 @@
                 var td = $("tr[data-i='" + array[i].tr_id + "']", $thisGrid)
 
                 td.detach();
-                
+
                 $("tbody", $thisGrid).append(td);
             }
 
@@ -204,5 +208,5 @@
             return false;
         }
     };
-    
+
 }(jQuery));
